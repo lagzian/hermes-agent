@@ -28,8 +28,6 @@ export default {
     window.addEventListener('contextmenu', (e) => {
       const selection = window.getSelection()?.toString().trim();
       if (selection && selection.length > 0) {
-        // Prevent default native context menu if we want to build a fully custom one,
-        // or we can show our floating menu right away on right-click!
         e.preventDefault();
 
         let existingMenu = document.getElementById('google-search-context-menu');
@@ -98,8 +96,8 @@ export default {
 
         document.body.appendChild(menu);
 
-        const closeListener = (evt: MouseEvent) => {
-          if (!menu.contains(evt.target as Node)) {
+        const closeListener = (evt) => {
+          if (!menu.contains(evt.target)) {
             menu.remove();
             window.removeEventListener('mousedown', closeListener);
           }
